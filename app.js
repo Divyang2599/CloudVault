@@ -14,7 +14,7 @@ require('dotenv').config();
 
 var app = express();
 
-app.use(cors({credentials: true, origin: process.env.SERVER_IP}));
+app.use(cors({ credentials: true, origin: process.env.SERVER_IP }));
 app.use(express.json());
 app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 //  -------------- SESSION SETUP ----------------
 
 const sessionStore = new MongoStore({
-    mongooseConnection: connection, 
+    mongooseConnection: connection,
     collection: 'sessions',
     autoRemove: 'interval',
     autoRemoveInterval: 10
@@ -31,11 +31,11 @@ app.set("trust proxy", 1);
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: sessionStore,
-    secure: true,
-    sameSite: "none",
     cookie: {
+        secure: true,
+        sameSite: "none",
         maxAge: 1000 * 60 * 60 * 24
     }
 }));
@@ -54,6 +54,6 @@ app.use(auth_routes);
 app.use(blob_storage_routes);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
 console.log("Listening on port 5000");
