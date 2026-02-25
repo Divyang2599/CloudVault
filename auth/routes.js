@@ -81,6 +81,7 @@ router.get('/is-logged', isAuth, (req, res, next) => {
 });
 
 router.get('/login-success', (req, res, next) => {
+    console.log(req.body);
     res.json({
         "user": req.user.username,
         "email": req.user.email,
