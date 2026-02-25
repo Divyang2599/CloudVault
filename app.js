@@ -34,7 +34,6 @@ app.use(session({
     saveUninitialized: true,
     store: sessionStore,
     cookie: {
-        secure: true,
         maxAge: 1000 * 60 * 60 * 24
     }
 }));
@@ -43,8 +42,6 @@ app.use(session({
 
 require('./auth/passport');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.set("trust proxy", 1);
