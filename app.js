@@ -27,7 +27,7 @@ const sessionStore = new MongoStore({
     autoRemove: 'interval',
     autoRemoveInterval: 10
 });
-
+app.set("trust proxy", 1);
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
@@ -44,7 +44,7 @@ require('./auth/passport');
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.set("trust proxy", 1);
+
 
 // -------------- ADD ROUTES ----------------
 
