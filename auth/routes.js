@@ -8,29 +8,29 @@ const User = connection.models.User;
 
 //-------------- POST ROUTES ----------------
 
-router.post('/login', passport.authenticate("local", { failureRedirect: '/login-failure', successRedirect: '/login-success' }));
+//router.post('/login', passport.authenticate("local", { failureRedirect: '/login-failure', successRedirect: '/login-success' }));
 
-// router.post("/login", (req, res, next) => {
-//     passport.authenticate("local", (err, user, info) => {
-//         if (err) return next(err);
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) return next(err);
 
-//         if (!user) {
-//             return res.json({ success: false, message: "Invalid credentials" });
-//         }
+        if (!user) {
+            return res.json({ success: false, message: "Invalid credentials" });
+        }
 
-//         req.logIn(user, (err) => {
-//             if (err) return next(err);
+        req.logIn(user, (err) => {
+            if (err) return next(err);
 
-//             return res.json({
-//                 success: true,
-//                 user: {
-//                     username: user.username,
-//                     email: user.email
-//                 }
-//             });
-//         });
-//     })(req, res, next);
-// });
+            return res.json({
+                success: true,
+                user: {
+                    username: user.username,
+                    email: user.email
+                }
+            });
+        });
+    })(req, res, next);
+});
 
 
 router.post('/logout', (req, res, next) => {
