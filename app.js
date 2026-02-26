@@ -15,6 +15,8 @@ require('dotenv').config();
 var app = express();
 
 app.use(cors({ credentials: true, origin: process.env.SERVER_IP }));
+app.options('*', cors({ origin: FRONTEND, credentials: true }));
+
 app.use(express.json());
 app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
@@ -27,7 +29,7 @@ const sessionStore = new MongoStore({
     autoRemove: 'interval',
     autoRemoveInterval: 10
 });
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
