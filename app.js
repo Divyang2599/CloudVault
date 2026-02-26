@@ -15,6 +15,7 @@ require('dotenv').config();
 var app = express();
 
 app.use(cors({ credentials: true, origin: process.env.SERVER_IP }));
+app.options('*', cors({ origin: process.env.SERVER_IP, credentials: true }));
 
 app.use(express.json());
 app.use(fileUpload());
